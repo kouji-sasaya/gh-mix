@@ -21,6 +21,8 @@ jobs:
           override: true
       - name: Build the project
         run: cargo build --release
+      - name: Make binary executable
+        run: chmod +x target/release/gh-sasaya
       - name: Package executable
         run: tar -czvf gh-sasaya.tar.gz -C target/release gh-sasaya
       - name: Create GitHub Release
