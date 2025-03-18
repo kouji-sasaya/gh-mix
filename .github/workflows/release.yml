@@ -21,6 +21,8 @@ jobs:
           override: true
       - name: Build the project
         run: cargo build --release
+      - name: Package executable
+        run: tar -czvf gh-sasaya.tar.gz -C target/release gh-sasaya
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v1
@@ -32,6 +34,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref_name }}
-          files: target/release/gh-sasaya
+          files: gh-sasaya.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
