@@ -39,3 +39,4 @@ sudo snap install gh
 ```bash
 sudo apt install gh
 ```
+
