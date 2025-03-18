@@ -37,5 +37,6 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           files: gh-sasaya.tar.gz
+          asset_name: gh-sasaya_${{ github.ref_name }}_linux_amd64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
