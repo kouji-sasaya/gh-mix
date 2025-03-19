@@ -1,25 +1,37 @@
-# gh-sasaya
+# gh-mix
 
-このプロジェクトは gh コマンドの拡張として Rust で作成されています。
+gh extension のプログラミングの多言語対応、ＯＳのマルチプラットフォームができるか実験しています。
+
+言語は、c、cpp、rust を使います。　※他は、勉強していきます。rust は、将来に向け、必要なので、作っています。
+
+ビルドシステムは、CMakeを使っています。
+
+理由は、とても美しいビルドシステムで、高速で、個人的に、大好きだからです。
+
+CMake の Cは、C言語じゃないからね。 Cross プラットフォームの、Cだからね。知らんけど。
 
 ## 環境構築
 
-- [Rust のインストール](https://www.rust-lang.org/tools/install)  
-  Rust ツールチェーンをインストールしてください。通常は `rustup` を利用します。
-- 必要に応じて、Cargo の最新版がインストールされているか確認してください。
+- cmake
+- gcc
+- rust
 
 ## gh-sasaya のビルド方法
 
 1. プロジェクトルートディレクトリに移動します。
 
    ```bash
-   cd gh-sasaya
+   cd gh-mix
    ```
 
-2. リリースビルドを実行します。
+2. ビルドを実行します。
+
+  cmake で、build ディレクトリを作成（cmakeに任せます）して、make します。
+
 
    ```bash
-   cargo build --release
+   cmake -S . -B build
+   make all -j8
    ```
 
 3. ビルド後のバイナリは `target/release/gh-sasaya` に生成されます。
@@ -29,11 +41,6 @@
 ## gh コマンドのインストール方法
 
 gh 拡張機能を利用するため、gh コマンドが必要です。 gh コマンドが存在しない場合は、以下のいずれかの方法でインストールしてください:
-
-### Snap を利用する場合:
-```bash
-sudo snap install gh
-```
 
 ### apt を利用する場合:
 ```bash
