@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+# パラメータが無い場合には、ヘルプ表示
+if [ $# -eq 0 ]; then
+  echo "Usage: $0 <command> [options]"
+  exit 1
+fi
+
+# もし、引数が rust で始まっていたら、rust コンテナを起動する
+if [ "$1" = "rust" ]; then
+  shift
+  ./gh-sasata-rust.sh "$@"
+  exit 0
+fi
+
+
+
