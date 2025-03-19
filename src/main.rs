@@ -2,7 +2,7 @@ fn main() {
     // ...existing code...
     let args: Vec<String> = std::env::args().collect();
     if args.len() < 2 {
-        println!("Usage: gh sasaya <command> [args]");
+        println!("Usage: gh sasaya rust <command> [args]");
         return;
     }
 
@@ -11,12 +11,12 @@ fn main() {
         "greet" => greet(),
         _ => {
             println!("Unknown command: {}", command);
-            println!("Usage: gh sasaya <command> [args]");
+            println!("Usage: gh sasaya rust <command> [args]");
         }
     }
     // ...existing code...
 }
 
 fn greet() {
-    println!("Hello from gh-sasaya!");
+    println!("Hello rust!");
 }
