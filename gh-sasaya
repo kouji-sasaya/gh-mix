@@ -10,7 +10,7 @@ fi
 # もし、引数が rust で始まっていたら、rust コンテナを起動する
 if [ "$1" = "rust" ]; then
   shift
-  ./gh-sasata-rust.sh "$@"
+  ./gh-sasaya-rust.sh "$@"
   exit 0
 fi
 
