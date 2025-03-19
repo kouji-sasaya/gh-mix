@@ -47,7 +47,8 @@ CMake を研究した結果、以下のルールで作ると、とても保守�
 
 
    ```bash
-   cmake -S . -B build
+   mkdir build && cd build
+   cmake ..
    make all -j8
    ```
 

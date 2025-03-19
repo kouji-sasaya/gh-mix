@@ -4,7 +4,7 @@ project(gh-mix)
 
 add_subdirectory(c)
 add_subdirectory(cpp)
-#add_subdirectory(rust)
+add_subdirectory(rust)
 # だれか作って
 #add_subdirectory(go)
 # だれか作って
@@ -24,4 +24,4 @@ set(CPACK_PACKAGE_CONTACT "myname@gmail.com")
 # set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
 
 # Include the CPack module
-include(CPack)
+#include(CPack)
