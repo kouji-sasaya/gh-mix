@@ -4,4 +4,8 @@ project(gh-mix)
 
 add_subdirectory(c)
 add_subdirectory(cpp)
-#add_subdirectory(rust)
+add_subdirectory(rust)
+# だれか作って
+#add_subdirectory(go)
+# だれか作って
+#add_subdirectory(python)

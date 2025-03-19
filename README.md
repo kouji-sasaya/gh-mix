@@ -17,8 +17,8 @@ CMake を研究した結果、以下のルールで作ると、とても保守�
 
 試してみて下さい。
 
-- 最上位のCMakeLists.txt 
-- つなぎ役のCMakeLists.txt
+- 最上位のCMakeLists.txt
+- つなぎ役のCMakeLists.txt。ここには、add_subdirectory()しかありません。
 - ターゲットのCMakeLists.txt
 - CMakeのターゲットと、実行ファイル名と、フォルダは、一致させるといいです。
 - 最上位に、ソースは置かないこと。
