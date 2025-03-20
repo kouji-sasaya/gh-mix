@@ -38,6 +38,7 @@ jobs:
           toolchain: stable
           override: true
 
+
       - name: Configure the project
         run: cmake -S . -B build -DVERSION=${{ github.ref_name }}
 
@@ -55,29 +56,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: debug
-        run: |
-          echo TARGET: ${{ matrix.target }}
-          echo ARTIFACT: ${{ matrix.artifact }}
-
       - name: Upload C binary
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: gh-mix_${{ github.ref_name }}_linux_amd64_c
+          name: gh-mix_${{ github.ref_name }}_${{ matrix.artifact }}_c
           path: ./build/c/gh-mix-c/gh-mix-c
 
       - name: Upload C++ binary
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: gh-mix_${{ github.ref_name }}_linux_amd64_cpp
+          name: gh-mix_${{ github.ref_name }}_${{ matrix.artifact }}_cpp
           path: ./build/cpp/gh-mix-cpp/gh-mix-cpp
 
       - name: Upload Rust binary
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: gh-mix_${{ github.ref_name }}_linux_amd64_rust
+          name: gh-mix_${{ github.ref_name }}_${{ matrix.artifact }}_rust
           path: ./build/rust/gh-mix-rust/release/gh-mix-rust
-
 
       #- uses: cli/gh-extension-precompile@v1
       #  with:
