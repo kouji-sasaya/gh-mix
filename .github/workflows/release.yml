@@ -38,7 +38,6 @@ jobs:
           toolchain: stable
           override: true
 
-
       - name: Configure the project
         run: cmake -S . -B build -DVERSION=${{ github.ref_name }}
 
@@ -48,6 +47,14 @@ jobs:
       - name: Package the project
         run: cmake --build build --target package
 
+      - name: Precompile GitHub CLI extension
+        uses: cli/gh-extension-precompile@v1
+        with:
+          build_script_override: "cmake --build build --target package"
+        env:
+          TARGET: ${{ matrix.target }}
+          ARTIFACT: ${{ matrix.artifact }}
+
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v1
@@ -56,24 +63,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload C binary
-        uses: actions/upload-artifact@v4
+      - name: Upload Release Asset
+        uses: actions/upload-artifact@v2
         with:
-          name: gh-mix_${{ github.ref_name }}_${{ matrix.artifact }}_c
-          path: ./build/c/gh-mix-c/gh-mix-c
-
-      - name: Upload C++ binary
-        uses: actions/upload-artifact@v4
-        with:
-          name: gh-mix_${{ github.ref_name }}_${{ matrix.artifact }}_cpp
-          path: ./build/cpp/gh-mix-cpp/gh-mix-cpp
-
-      - name: Upload Rust binary
-        uses: actions/upload-artifact@v4
-        with:
-          name: gh-mix_${{ github.ref_name }}_${{ matrix.artifact }}_rust
-          path: ./build/rust/gh-mix-rust/release/gh-mix-rust
-
+          name: gh-mix_${{ github.ref_name }}_${{ matrix.artifact }}
+          path: build/gh-mix-${{ github.ref_name }}-Linux.tar.gz
       #- uses: cli/gh-extension-precompile@v1
       #  with:
       #    build_script_override: "script/build.sh"
