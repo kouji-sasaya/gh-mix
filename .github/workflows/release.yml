@@ -55,17 +55,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-
-      - name: Upload Release Asset
-        id: create_release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{ github.ref_name }}
-          files: build/gh-mix-${{ github.ref_name }}-Linux.tar.gz
-          asset_name: gh-mix_${{ github.ref_name }}_linux_amd64.tar.gz
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: debug
         run: |
           echo TARGET: ${{ matrix.target }}
