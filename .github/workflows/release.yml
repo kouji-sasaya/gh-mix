@@ -57,6 +57,7 @@ jobs:
 
 
       - name: Upload Release Asset
+        id: create_release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref_name }}
@@ -65,9 +66,33 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: cli/gh-extension-precompile@v1
+      - name: debug
+        run: |
+          echo TARGET: ${{ matrix.target }}
+          echo ARTIFACT: ${{ matrix.artifact }}
+
+      - name: Upload C binary
+        uses: actions/upload-artifact@v2
         with:
-          build_script_override: "script/build.sh"
-        env:
-          TARGET: ${{ matrix.target }}
-          ARTIFACT: ${{ matrix.artifact }}
+          name: gh-mix_${{ github.ref_name }}_linux_amd64_c
+          path: ./build/c/gh-mix-c/gh-mix-c
+
+      - name: Upload C++ binary
+        uses: actions/upload-artifact@v2
+        with:
+          name: gh-mix_${{ github.ref_name }}_linux_amd64_cpp
+          path: ./build/cpp/gh-mix-cpp/gh-mix-cpp
+
+      - name: Upload Rust binary
+        uses: actions/upload-artifact@v2
+        with:
+          name: gh-mix_${{ github.ref_name }}_linux_amd64_rust
+          path: ./build/rust/gh-mix-rust/release/gh-mix-rust
+
+
+      #- uses: cli/gh-extension-precompile@v1
+      #  with:
+      #    build_script_override: "script/build.sh"
+      #  env:
+      #    TARGET: ${{ matrix.target }}
+      #    ARTIFACT: ${{ matrix.artifact }}

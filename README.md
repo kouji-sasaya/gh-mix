@@ -26,6 +26,29 @@ gh extension のプログラミングの多言語対応、ＯＳのマルチプ�
 - rust
 
 
+
+## Install
+
+```
+gh extension install kouji-sasaya/gh-mix
+```
+
+## Update
+
+```
+gh extension upgrade mix
+```
+
+## Uninstall
+
+```
+gh extension remove mix
+```
+
+
+
+
+
 ## gh-mix のビルド方法
 
 
