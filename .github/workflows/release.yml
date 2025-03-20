@@ -57,15 +57,17 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref_name }}
-          files: |
-            ./dist/gh-mix
-            ./dist/gh-mix-c
-            ./dist/gh-mix-cpp
-            ./dist/gh-mix-rust
-
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: build/gh-mix-${{ github.ref_name }}-${{ matrix.artifact }}.tar.gz
+          asset_name: gh-mix_${{ github.ref_name }}_${{ matrix.artifact }}.tar.gz
+          asset_content_type: application/gzip            
+
       #- uses: cli/gh-extension-precompile@v1
       #  with:
       #    build_script_override: "script/build.sh"
