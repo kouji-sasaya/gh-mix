@@ -44,23 +44,13 @@ jobs:
       - name: Build the project
         run: cmake --build build --config Release
 
-      - name: Package the project
-        run: cmake --build build --target package
 
-      - name: Precompile GitHub CLI extension
-        uses: cli/gh-extension-precompile@v1
-        with:
-          build_script_override: "cmake --build build --target package"
-        env:
-          TARGET: ${{ matrix.target }}
-          ARTIFACT: ${{ matrix.artifact }}
-
-      - uses: cli/gh-extension-precompile@v1
-        with:
-          build_script_override: "script/build.sh"
-        env:
-          TARGET: ${{ matrix.target }}
-          ARTIFACT: ${{ matrix.artifact }}
+      - name: Install to dist
+        run: |
+          cp -v ./gh-mix ./dist
+          cp -v ./build/c/gh-mix-c/gh-mix-c ./dist
+          cp -v ./build/cpp/gh-mix-cpp/gh-mix-cpp ./dist
+          cp -v ./build/rust/gh-mix-rust/release/gh-mix-rust ./dist
 
       - name: Create GitHub Release
         id: create_release
