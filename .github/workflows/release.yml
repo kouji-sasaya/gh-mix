@@ -55,19 +55,27 @@ jobs:
           TARGET: ${{ matrix.target }}
           ARTIFACT: ${{ matrix.artifact }}
 
+      - uses: cli/gh-extension-precompile@v1
+        with:
+          build_script_override: "script/build.sh"
+        env:
+          TARGET: ${{ matrix.target }}
+          ARTIFACT: ${{ matrix.artifact }}
+
       - name: Create GitHub Release
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref_name }}
+          files: |
+            ./dist/gh-mix
+            ./dist/gh-mix-c
+            ./dist/gh-mix-cpp
+            ./dist/gh-mix-rust
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload Release Asset
-        uses: actions/upload-artifact@v4
-        with:
-          name: gh-mix_${{ github.ref_name }}_${{ matrix.artifact }}
-          path: build/gh-mix-${{ github.ref_name }}-Linux.tar.gz
+            
       #- uses: cli/gh-extension-precompile@v1
       #  with:
       #    build_script_override: "script/build.sh"
