@@ -4,3 +4,5 @@ project(hello_cpp)
 add_executable(hello_cpp
  ./src/hello.cpp
  )
+
+install(TARGETS hello_cpp DESTINATION bin)

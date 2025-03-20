@@ -1,19 +1,22 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.28)
+
 project(hello_rust)
 
-# Set the Rust compiler
-set(CMAKE_RUST_COMPILER cargo)
+# Set the build directory for Cargo
+set(RUST_BUILD_DIR ${CMAKE_BINARY_DIR}/rust/hello_rust)
 
-# Add a custom target to build the Rust project
+# Create the build directory if it doesn't exist
+file(MAKE_DIRECTORY ${RUST_BUILD_DIR})
+
 add_custom_target(hello_rust ALL
-    COMMAND ${CMAKE_RUST_COMPILER} build --release
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    BYPRODUCTS ${CMAKE_SOURCE_DIR}/target/release/hello_rust
-    COMMENT "Building Rust project"
+    COMMAND cargo build --release --target-dir ${RUST_BUILD_DIR}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    BYPRODUCTS ${RUST_BUILD_DIR}/release/hello_rust
 )
 
-# Add the Rust executable as an output
-add_executable(hello_rust_exe IMPORTED)
-set_target_properties(hello_rust_exe PROPERTIES
-    IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/target/release/hello_rust
-)
+#add_custom_command(TARGET hello_rust POST_BUILD
+#    COMMAND ${CMAKE_COMMAND} -E copy ${RUST_BUILD_DIR}/release/hello_rust ${CMAKE_BINARY_DIR}/hello_rust
+#)
+
+# Install the binary
+install(PROGRAMS ${RUST_BUILD_DIR}/release/hello_rust DESTINATION bin)

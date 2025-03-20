@@ -8,17 +8,30 @@ on:
     tags:
       # セマンティックバージョンのタグをリリースする。vなし
       - "[0-9]*.[0-9]*.[0-9]*"
-
+      
 jobs:
   build-and-release:
-    runs-on: ubuntu-latest
+    name: Release binary for multi platform
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            artifact: windows-amd64.exe
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            artifact: linux-amd64
+    runs-on: ${{ matrix.os }}
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Install CMake
-        run: sudo apt-get install -y cmake
-
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: '3.16.x'
+  
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1
         with:
@@ -26,7 +39,7 @@ jobs:
           override: true
 
       - name: Configure the project
-        run: cmake -S . -B build
+        run: cmake -S . -B build -DVERSION=${{ github.ref_name }}
 
       - name: Build the project
         run: cmake --build build --config Release
@@ -42,11 +55,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref_name }}
-          files: build/gh-mix-1.0.0-Linux.tar.gz
+          files: build/gh-mix-${{ github.ref_name }}-Linux.tar.gz
           asset_name: gh-mix_${{ github.ref_name }}_linux_amd64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

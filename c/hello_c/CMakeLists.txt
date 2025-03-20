@@ -9,3 +9,6 @@ add_executable(
   hello_c
   ./src/hello.c
 )  
+
+# Install the executable
+install(TARGETS hello_c DESTINATION bin)
