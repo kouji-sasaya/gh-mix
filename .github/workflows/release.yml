@@ -64,7 +64,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Release Asset
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: gh-mix_${{ github.ref_name }}_${{ matrix.artifact }}
           path: build/gh-mix-${{ github.ref_name }}-Linux.tar.gz
