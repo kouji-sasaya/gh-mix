@@ -64,3 +64,10 @@ jobs:
           asset_name: gh-mix_${{ github.ref_name }}_linux_amd64.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: cli/gh-extension-precompile@v1
+        with:
+          build_script_override: "script/build.sh"
+        env:
+          TARGET: ${{ matrix.target }}
+          ARTIFACT: ${{ matrix.artifact }}

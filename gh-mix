@@ -1,18 +1,33 @@
 #!/bin/sh
 set -e
 
-# パラメータが無い場合には、ヘルプ表示
+# If no arguments are provided, print the usage
 if [ $# -eq 0 ]; then
-  echo "Usage: $0 <command> [options]"
+  echo "Usage: gh <command> [options]"
+  echo "Commands:"
+  echo "  c       Compile and run the C program"
+  echo "  cpp     Compile and run the C++ program"
+  echo "  rust    Compile and run the Rust program"
   exit 1
 fi
 
-# もし、引数が rust で始まっていたら、rust コンテナを起動する
-if [ "$1" = "rust" ]; then
+DIR="(dirname ${0})"
+
+# If the first parameter is "c", execute the C program
+if [ "$1" = "c" ]; then
   shift
-  ./gh-sasaya-rust.sh "$@"
+  ${DIR}/gh-mix-c "$@"
   exit 0
 fi
-
-
-
+# If the first parameter is "cpp", execute the C++ program
+if [ "$1" = "cpp" ]; then
+  shift
+  ${DIR}/gh-mix-cpp "$@"
+  exit 0
+fi
+# If the first parameter is "rust", execute the Rust program
+if [ "$1" = "rust" ]; then
+  shift
+  ${DIR}/gh-mix-rust "$@"
+  exit 0
+fi

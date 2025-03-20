@@ -1,2 +1,2 @@
-add_subdirectory(hello_c)
+add_subdirectory(gh-mix-c)
 

@@ -1,2 +1,2 @@
-add_subdirectory(hello_rust)
+add_subdirectory(gh-mix-rust)
 

@@ -49,7 +49,7 @@ gh extension のプログラミングの多言語対応、ＯＳのマルチプ�
    make package
    ```
 
-3. ビルド後のバイナリは `target/release/gh-sasaya` に生成されます。
+3. ビルド後のバイナリは `build` 配下に、生成されます。
 
 以上をリポジトリに反映し、`gh` 拡張として利用してください。
 
@@ -61,4 +61,8 @@ gh 拡張機能を利用するため、gh コマンドが必要です。 gh コ�
 ```bash
 sudo apt install gh
 ```
+
+
+# License
+Distributed under the MIT License.
 
