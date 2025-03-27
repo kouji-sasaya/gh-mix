@@ -1,5 +1,5 @@
 # Set the project name
-project(gh-ctx1)
+project(gh-mix-ctx1)
 
 # Add an executable
 add_executable(${PROJECT_NAME}
