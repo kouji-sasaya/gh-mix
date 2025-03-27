@@ -11,6 +11,7 @@ project(gh-mix VERSION ${VERSION})
 add_subdirectory(gh-mix-ctx1)
 add_subdirectory(gh-mix-ctx2)
 add_subdirectory(gh-mix-ctx3)
+#add_subdirectory(gh-mix-ctx4)
 
 # if Linux or MacOS
 if(UNIX)

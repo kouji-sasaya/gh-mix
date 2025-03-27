@@ -15,7 +15,11 @@ fi
 
 # ex: 1.0.0
 NEW_VERSION=$(cat ${DIRNAME}/manifest.yml | grep "tag" | awk '{print $2}')
-OLD_VERSION=$(cat ${DIRNAME}/VERSION)
+if [  -f ${DIRNAME}/VERSION ]; then
+  OLD_VERSION=$(cat ${DIRNAME}/VERSION)
+else
+  OLD_VERSION="0.0.0"
+fi
 
 if [ ${OLD_VERSION} != ${NEW_VERSION} ]; then
   echo "--------------------------------------"
@@ -27,7 +31,7 @@ if [ ${OLD_VERSION} != ${NEW_VERSION} ]; then
   echo "--------------------------------------"
   # ex: linux-amd64
   ARTIFACT="linux-amd64"
-  ASSET_URL="https://github.com/kouji-sasaya/gh-mix/releases/download/${VERSION}/gh-mix_${VERSION}_${ARTIFACT}.tar.gz"
+  ASSET_URL="https://github.com/kouji-sasaya/gh-mix/releases/download/${NEW_VERSION}/gh-mix_${NEW_VERSION}_${ARTIFACT}.tar.gz"
   curl --silent -L "${ASSET_URL}" -o "${DIRNAME}/gh-mix.tar.gz"
   cd ${DIRNAME}
   tar xf gh-mix.tar.gz
@@ -39,6 +43,7 @@ else
   echo "NEW_VERSION=${NEW_VERSION}"
   echo "--------------------------------------"
 fi
+
 
 if [ "${1}" = "ctx1" ]; then
   ${DIRNAME}/bin/gh-mix-ctx1 $@
