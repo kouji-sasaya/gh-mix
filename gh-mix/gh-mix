@@ -4,14 +4,6 @@ set -e
 BASENAME=$(basename $0)
 DIRNAME=$(dirname $0)
 
-# If no options are specified, display help
-if [ $# -eq 0 ]; then
-  echo "Usage: ${BASENAME} [c|rust|sh] [args]"
-  echo "  gh mix c    # hello world by c"
-  echo "  gh mix rust # hello world by rust"
-  echo "  gh mix sh   # hello world by shellscript"
-  exit 1
-fi
 
 # ex: 1.0.0
 NEW_VERSION=$(cat ${DIRNAME}/manifest.yml | grep "tag" | awk '{print $2}')
@@ -38,6 +30,15 @@ if [ ${OLD_VERSION} != ${NEW_VERSION} ]; then
   cd -
 fi
 
+
+# If no options are specified, display help
+if [ $# -eq 0 ]; then
+  echo "Usage: ${BASENAME} [c|rust|sh] [args]"
+  echo "  gh mix c    # hello world by c"
+  echo "  gh mix rust # hello world by rust"
+  echo "  gh mix sh   # hello world by shellscript"
+  exit 1
+fi
 
 if [ "${1}" = "c" ]; then
   ${DIRNAME}/bin/gh-mix-c $@
