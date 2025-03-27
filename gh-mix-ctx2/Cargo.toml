@@ -1,7 +1,7 @@
 [package]
-name = "gh-mix-rust"
+name = "gh-mix-ctx2"
 version = "0.1.0"
 edition = "2021"
 [[bin]]
-name = "gh-mix-rust"
+name = "gh-mix-ctx2"
 path = "src/hello.rs"

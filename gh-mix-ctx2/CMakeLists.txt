@@ -1,7 +1,7 @@
-project(gh-mix-rust)
+project(gh-mix-ctx2)
 
 # Set the build directory for Cargo
-set(RUST_BUILD_DIR ${CMAKE_BINARY_DIR}/rust/${PROJECT_NAME})
+set(RUST_BUILD_DIR ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
 
 # Create the build directory if it doesn't exist
 file(MAKE_DIRECTORY ${RUST_BUILD_DIR})
