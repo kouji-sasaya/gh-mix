@@ -4,87 +4,44 @@ set -e
 BASENAME=$(basename $0)
 DIRNAME=$(dirname $0)
 
-echo "--------------------------------------"
-echo "初回またはバージョン変更時には、自動でインストールプログラムが実行します。"
-echo "manifest.yml に記載されたバージョン情報で判断しています。"
-echo "gh extension を実行すると、インストールプログラム兼mainプログラムの ${BASENAME} が実行されます。"
-echo "- gh-mix      : シェルスクリプトで記述されたインストールプログラム兼mainプログラム"
-echo "${BASENAME} は、シェルスプリプトで、インストールされるプログラムは、以下のプログラムです。"
-echo "- gh-mix-ctx1    : C言語で作成されたプログラム"
-echo "- gh-mix-ctx1pp  : C++言語で作成されたプログラム"
-echo "- gh-mix-ctx3 : Rust言語で作成されたプログラム"
-echo "- gh-mix-ctx4   : Shell言語で作成されたプログラム"
-echo "--------------------------------------"
-echo " manifest.ymlの内容を確認してください。"
-echo "--------------------------------------"
-if [ -f  ${DIRNAME}/manifest.yml ];then
-  cat ${DIRNAME}/manifest.yml
+if [ $# -e 0 ]; then
+  echo "Usage: ${BASENAME} [ctx1|ctx2|ctx3] [args]"
+  echo "  gh mix ctx1    # hello world by c"
+  echo "  gh mix ctx2    # hello world by rust"
+  echo "  gh mix ctx3    # hello world by shellscript"
+  exit 1
 fi
-echo "インストールは、リポジトリのreelaseにのassetら、ダウンロードして、インストールされようです。"
-echo "中身は、シェルスクリプト１つで、gh-mixで構成管理しているシェルスクリプトです。"
-echo "assetのURLは、以下のURLです。"
-echo "これは、おそらく、gh extensionのルールだと思われます。まだ確信はありません。"
-echo "- https://github.com/kouji-sasaya/gh-mix/releases/download/0.0.15/linux-amd64 : linux-amd64"
-echo "- https://github.com/kouji-sasaya/gh-mix/releases/download/0.0.15/linux-arm64 : linux-arm64"
-echo "- https://github.com/kouji-sasaya/gh-mix/releases/download/0.0.15/windows-amd64 : windows-amd64"
-echo "- https://github.com/kouji-sasaya/gh-mix/releases/download/0.0.15/windows-arm64 : windows-arm64"
-echo "インストール先は、.local/share/gh/extensions/gh-mix/に、インストールされます。"
-echo "--------------------------------------"
-echo gh extensionが自動生成すると思われる、manifest.yml ファイル
-echo バージョン情報を取得できるので、バージョンコントールできます。
-echo "${DIRNAME}/manifest.yml を表示します。"
-echo "manifest.ymlの内容を確認してください。"
-echo "--------------------------------------"
-if [ -f  ${DIRNAME}/manifest.yml ];then
-  cat ${DIRNAME}/manifest.yml
-fi
-echo "--------------------------------------"
-
-echo "--------------------------------------"
-echo "インストールされたプログラムは、gh activity経由で実行されます。"
-echo "--------------------------------------"
-echo "- gh activity c    : <install dir>/bin/gh-mix-ctx1を実行します。"
-echo "- gh activity cpp  : <install dir>/bin/gh-mix-ctx1ppを実行します。"
-echo "- gh activity rust : <install dir>/bin/gh-mix-ctx3を実行します。"
-echo "- gh activity sh   : <install dir>/bin/gh-mix-ctx4を実行します。"
-echo "--------------------------------------"
 
 
-echo "--------------------------------------"
-echo "uname -s で、OS情報を表示します。"
-echo "linux : Linux"
-echo "windos : ???"
-echo "mac : ???"
-echo "--------------------------------------"
-uname -s
-echo "--------------------------------------"
-echo "uname -m で、アーキテクチャ情報を表示します。"
-echo "wSL2 : x86_64"
-echo "mac : ???"
-echo "windows : ???"
-echo "--------------------------------------"
-uname -m
 
-echo "--------------------------------------"
-echo "uname -i で、ハードウェア情報を表示します。"
-echo "WSL2 : x86_64"
-echo "windows : ???"
-echo "--------------------------------------"
-uname -i
 
-echo DIRNAME=${DIRNAME}
+
 # ex: 1.0.0
-VERSION=$(cat ${DIRNAME}/manifest.yml | grep "tag" | awk '{print $2}')
-# ex: linux-amd64
-ARTIFACT="linux-amd64"
+NEW_VERSION=$(cat ${DIRNAME}/manifest.yml | grep "tag" | awk '{print $2}')
+OLD_VERSION=$(cat ${DIRNAME}/VERSION)
 
-ASSET_URL="https://github.com/kouji-sasaya/gh-mix/releases/download/${VERSION}/gh-mix_${VERSION}_${ARTIFACT}.tar.gz"
-
-curl --silent -L "${ASSET_URL}" -o "${DIRNAME}/gh-mix.tar.gz"
-
-cd ${DIRNAME}
-tar xf gh-mix.tar.gz
-cd -
+if [ ${OLD_VERSION} != ${NEW_VERSION} ]; then
+  echo "--------------------------------------"
+  echo "バージョンが変更されました。"
+  echo "OLD_VERSION=${OLD_VERSION}"
+  echo "NEW_VERSION=${NEW_VERSION}"
+  echo "--------------------------------------"
+  echo "gh-mixをインストールします。"
+  echo "--------------------------------------"
+  # ex: linux-amd64
+  ARTIFACT="linux-amd64"
+  ASSET_URL="https://github.com/kouji-sasaya/gh-mix/releases/download/${VERSION}/gh-mix_${VERSION}_${ARTIFACT}.tar.gz"
+  curl --silent -L "${ASSET_URL}" -o "${DIRNAME}/gh-mix.tar.gz"
+  cd ${DIRNAME}
+  tar xf gh-mix.tar.gz
+  cd -
+else
+  echo "--------------------------------------"
+  echo "バージョンは変更されていません。"
+  echo "OLD_VERSION=${OLD_VERSION}"
+  echo "NEW_VERSION=${NEW_VERSION}"
+  echo "--------------------------------------"
+fi
 
 if [ "${1}" = "ctx1" ]; then
   ${DIRNAME}/bin/gh-mix-ctx1 $@
