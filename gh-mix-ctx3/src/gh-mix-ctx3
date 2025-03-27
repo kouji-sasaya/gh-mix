@@ -1,4 +1,0 @@
-#!/bin/sh
-
-# Hello world in shell script
-echo "Hello, world in shell script!"

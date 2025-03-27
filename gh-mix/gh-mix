@@ -6,10 +6,10 @@ DIRNAME=$(dirname $0)
 
 # If no options are specified, display help
 if [ $# -eq 0 ]; then
-  echo "Usage: ${BASENAME} [ctx1|ctx2|ctx3] [args]"
-  echo "  gh mix ctx1    # hello world by c"
-  echo "  gh mix ctx2    # hello world by rust"
-  echo "  gh mix ctx3    # hello world by shellscript"
+  echo "Usage: ${BASENAME} [c|rust|sh] [args]"
+  echo "  gh mix c    # hello world by c"
+  echo "  gh mix rust # hello world by rust"
+  echo "  gh mix sh   # hello world by shellscript"
   exit 1
 fi
 
@@ -36,26 +36,23 @@ if [ ${OLD_VERSION} != ${NEW_VERSION} ]; then
   cd ${DIRNAME}
   tar xf gh-mix.tar.gz
   cd -
-else
-  echo "--------------------------------------"
-  echo "バージョンは変更されていません。"
-  echo "OLD_VERSION=${OLD_VERSION}"
-  echo "NEW_VERSION=${NEW_VERSION}"
-  echo "--------------------------------------"
 fi
 
 
-if [ "${1}" = "ctx1" ]; then
-  ${DIRNAME}/bin/gh-mix-ctx1 $@
+if [ "${1}" = "c" ]; then
+  ${DIRNAME}/bin/gh-mix-c $@
   exit
 fi
 
-if [ "${1}" = "ctx2" ]; then
-  ${DIRNAME}/bin/gh-mix-ctx2 $@
+if [ "${1}" = "rust" ]; then
+  ${DIRNAME}/bin/gh-mix-rust $@
   exit
 fi
 
-if [ "${1}" = "ctx3" ]; then
-  ${DIRNAME}/bin/gh-mix-ctx3 $@
+if [ "${1}" = "sh" ]; then
+  ${DIRNAME}/bin/gh-mix-sh $@
   exit
 fi
+
+echo "Invalid sub command: ${1}"
+exit 1

@@ -1,5 +1,5 @@
 # Set the project name
-project(gh-mix-ctx1)
+project(gh-mix-c LANGUAGES C)
 
 # Add an executable
 add_executable(${PROJECT_NAME}

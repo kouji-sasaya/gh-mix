@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "gh-mix-ctx2"
+name = "gh-mix-rust"
 version = "0.1.0"

@@ -8,10 +8,10 @@ endif()
 # Set to PROJECT_VERSION
 project(gh-mix VERSION ${VERSION})
 
-add_subdirectory(gh-mix-ctx1)
-add_subdirectory(gh-mix-ctx2)
-add_subdirectory(gh-mix-ctx3)
-#add_subdirectory(gh-mix-ctx4)
+add_subdirectory(gh-mix)
+add_subdirectory(gh-mix-c)
+add_subdirectory(gh-mix-rust)
+add_subdirectory(gh-mix-sh)
 
 # if Linux or MacOS
 if(UNIX)
