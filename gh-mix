@@ -4,17 +4,14 @@ set -e
 BASENAME=$(basename $0)
 DIRNAME=$(dirname $0)
 
-if [ $# -e 0 ]; then
+# If no options are specified, display help
+if [ $# -eq 0 ]; then
   echo "Usage: ${BASENAME} [ctx1|ctx2|ctx3] [args]"
   echo "  gh mix ctx1    # hello world by c"
   echo "  gh mix ctx2    # hello world by rust"
   echo "  gh mix ctx3    # hello world by shellscript"
   exit 1
 fi
-
-
-
-
 
 # ex: 1.0.0
 NEW_VERSION=$(cat ${DIRNAME}/manifest.yml | grep "tag" | awk '{print $2}')
