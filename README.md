@@ -45,10 +45,6 @@ gh extension upgrade mix
 gh extension remove mix
 ```
 
-
-
-
-
 ## gh-mix のビルド方法
 
 

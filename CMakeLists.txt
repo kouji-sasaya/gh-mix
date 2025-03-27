@@ -21,7 +21,7 @@ elseif(WIN32)
 endif()
 
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF)
-set(CPACK_PACKAGE_NAME "gh-activity")
+set(CPACK_PACKAGE_NAME "gh-mix")
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 set(CPACK_PACKAGE_CONTACT "kouji.sasaya@gmail.com")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Multi pratform and Cross programing language")
